@@ -14,6 +14,7 @@ class Members(models.Model):
 class Products(models.Model):
 	product_id = models.AutoField(primary_key=True)
 	product_name = models.CharField(max_length=100)
+	product_img = models.ImageField(null=True, blank=True ,upload_to="imgs/")
 	product_price = models.FloatField()
 	product_quantity = models.IntegerField()
 	product_cmt = models.CharField(max_length=1000)
@@ -22,8 +23,8 @@ class Products(models.Model):
 
 
 class order_products(models.Model):
-	Member_id = models.IntegerField()
-	product_id = models.IntegerField()
+	Member_id = models.ForeignKey(Members, on_delete=models.CASCADE)
+	product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
 	product_price = models.FloatField()
 	total = models.IntegerField()
 	order_date = models.DateField()
@@ -31,16 +32,16 @@ class order_products(models.Model):
 	
 	def __str__(self):
 		return 'order  ' + 'id member'  + str(self.Member_id) + '- id product :  ' + str(self.product_id)
-class product_cmt(models.Model):
-	Member_id = models.IntegerField()
-	product_id = models.IntegerField()
+class product_cmts(models.Model):
+	Member_id = models.ForeignKey(Members, on_delete=models.CASCADE)
+	product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
 	cmt = models.CharField(max_length = 2000)
 	
 	def __str__ (self):
 		return str(self.Member_id) + ' - ' + str(self.product_id) + '  : ' + self.cmt
 
 class bill(models.Model):
-	Member_id = models.IntegerField()
+	Member_id = models.ForeignKey(Members, on_delete=models.CASCADE)
 	total = models.FloatField()
 	order_date = models.DateField()
 

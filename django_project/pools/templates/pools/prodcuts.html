@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
 	.card {
+		display: inline-block;
 	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	  max-width: 300px;
 	  margin: auto;
@@ -39,6 +40,9 @@
 	body {
 	  background-color: lightblue;
 	}
+	div.block{
+		display: inline-block;
+	}
 	
 </style>
 </head>
@@ -66,11 +70,12 @@
 	</form>
 
 
-	<div>
+	<div class = "block">
 		{% for item in all_products %}
 		<div class="card" color = "white">
 		<p>Product ID :  {{ item.product_id }}</p>
-		<p class = >NAME :  {{ item.product_name }}</p>
+		<p>NAME :  {{ item.product_name }}</p>
+		<img src={{ item.product_img.url }} width="300" height="300" >
 		<p class="price">Price : {{ item.product_price }}</p>
 		<p class= >Total : {{ item.product_quantity }}</p>
 			<form  id = {{item.product_name}}  method='POST' >
@@ -81,14 +86,14 @@
 					<input id = "product_id" type="hidden" name = "product_id" value={{item.product_id}}>
 					<input id = "product_price" type="hidden" name = "product_price" value={{item.product_price}}>
 				</div>
-				<button>ADD</button>
+				<button>ADD To Card</button>
 			</form>
 			<!-- <button onclick="cart({{item.product_name}})">ADD2</button><br><br> -->
 				
 			<br>
 			<form action = 'add_cmt/' method="POST"> 
 				{% csrf_token %}
-				ADD CMT  :	 <input style="border: 2px solid blue"  type = "text" name = "cmt"><br>
+				<input style="border: 2px solid blue"  type = "text" name = "cmt" placeholder="Add comment here !"><br>
 				<input type="hidden" name="product_id" value={{item.product_id}}>
 				<button>Comment</button>
 			</form>

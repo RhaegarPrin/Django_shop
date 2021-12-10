@@ -1,13 +1,12 @@
 from django.shortcuts import render , redirect
 from django.urls import reverse
-# Create your views here.
 from django.http import HttpResponse , JsonResponse
 from datetime import datetime
 
 from . models import Members
 from . models import Products 
 from . models import order_products
-from . models import product_cmt
+from . models import product_cmts as product_cmt
 from . models import bill
 #from .form import Memberform
 
@@ -51,7 +50,7 @@ def add2Cart(mem_id , product_id , product_price, total ,order_date , order_stat
 		product.product_quantity -= int(total) 
 		product.save()
 		print(mem_id , product_id , product_price , total , order_date , order_status) 
-		order = order_products( Member_id = mem_id , product_id =  product_id , product_price = product_price ,total=  total,\
+		order = order_products( Member_id_id = mem_id , product_id_id =  product_id , product_price = product_price ,total=  total,\
 			order_date = order_date , order_status = order_status  )
 		order.save()
 #Tra ve trang san pham da order
@@ -153,7 +152,7 @@ from django.core import serializers
 
 def create_bill(member_id):
 		current_date = datetime.today()
-		new_bill = bill( Member_id=member_id , total=0 , order_date=current_date)
+		new_bill = bill( Member_id_id=member_id , total=0 , order_date=current_date)
 		new_bill.save()
 		return new_bill
 
@@ -167,7 +166,7 @@ def order(request) :
 		res = msg.split(',')
 		print('res : ' , res )
 		member_id  = request.COOKIES.get('id')
-		all = order_products.objects.filter(Member_id=member_id,order_status=0)
+		all = order_products.objects.filter(Member_id_id=member_id,order_status=0)
 		print(all)
 		list_payment=[]
 		total = 0
@@ -182,7 +181,7 @@ def order(request) :
 				print(item, 'saved')
 		new_bill.total = total
 		new_bill.save()
-		list = order_products.objects.filter(Member_id=member_id , order_status= 0)
+		list = order_products.objects.filter(Member_id_id=member_id , order_status= 0)
 		#filter by id in msg 
 		print(list)
 		#data = serializers.serialize('json', list_payment)

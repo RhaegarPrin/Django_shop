@@ -2,7 +2,7 @@ from django.contrib import admin
 from . models import Members
 from . models import Products
 from . models import order_products
-from . models import product_cmt
+from . models import product_cmts as product_cmt
 from . models import bill
 # Register your models here.
 admin.site.register(Members)
