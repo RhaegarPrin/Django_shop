@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Veiw Comments Page</title>
 </head>
-<body>
-	<h1>Cmt page Page  {{ all_cmt }}</h1>
-	
+<body>	
 	<h1>--------------------</h1>
-
+	<{% for p in product %}
+		<img src={{p.product_img.url }} width="300" height="300" >
+	{% endfor %}
+	
 	{% for cmt in all_cmt %}
-		<p> {{ cmt }}</p>
+		<p style="font-weight: bold"> {{ cmt.Member_id.name }} : {{ cmt.cmt }}</p>
+		<br>
 	{% endfor %}
 </body>
 </html>

@@ -106,15 +106,15 @@ def product_comment(request ):
 	if request.method == 'GET' :
 		all_cmt = product_cmt.objects.all()
 		product_id = request.GET.get('product_id')
-		print('ok cmt' , product_id )
+		product = Products.objects.filter(product_id = product_id)
 		list_cmt = []
 		print(type(all_cmt))
 		for cmt in all_cmt :
-			if int(product_id) == cmt.product_id  : 
+			if int(product_id) == cmt.product_id_id  : 
 				print('matched ' , cmt.cmt )
 				list_cmt.append(cmt)
 		print( type(list_cmt), 'all : ', list_cmt)
-		return render(request , 'pools/product_cmt.html', {'all_cmt':list_cmt} )
+		return render(request , 'pools/product_cmt.html', {'all_cmt':list_cmt , 'product':product} )
 	return redirect( 'products' )
 
 def add_cmt( request) :
@@ -122,7 +122,7 @@ def add_cmt( request) :
 		product_id = request.POST.get('product_id')
 		cmt = request.POST.get('cmt')
 		Member_id = 1
-		product_cmt_action =  product_cmt(Member_id  = Member_id , product_id = product_id , cmt = cmt)
+		product_cmt_action =  product_cmt(Member_id_id  = Member_id , product_id_id = product_id , cmt = cmt)
 		product_cmt_action.save()
 		return redirect('products')
 	return redirect('products')
